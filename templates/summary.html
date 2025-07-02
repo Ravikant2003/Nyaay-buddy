@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case Doubt Solver - Nyaaybuddy</title>
+    <link rel="stylesheet" href="/static/summary.css" />
+    <script defer src="/static/script.js"></script>
+  </head>
+  <body class="dark-mode">
+    <header>
+      <h1>Case Doubt Solver</h1>
+      <label class="switch">
+        <input type="checkbox" id="theme-toggle" checked />
+        <span class="slider"></span>
+      </label>
+    </header>
+
+    <main>
+      <div class="output-container">
+        <p>This is where the summary output will be generated and displayed.</p>
+
+        <!-- User input form -->
+        <section class="summary-input">
+          <form method="post" action="/summary">
+            <input type="text" name="question" placeholder="Enter your question about the case..." required />
+            <button type="submit">Ask</button>
+          </form>
+        </section>
+
+        <!-- Displaying the user's question -->
+        {% if question %}
+        <section class="user-question">
+          <h2>Your Question:</h2>
+          <p>{{ question }}</p>
+        </section>
+        {% endif %}
+
+        <!-- Displaying the AI-generated summary -->
+        {% if response %}
+        <section class="summary-output">
+          <h2>AI-Generated Summary:</h2>
+          <p>{{ response }}</p>
+        </section>
+        {% endif %}
+
+        <!-- Error message section -->
+        {% if error %}
+        <section class="error-output">
+          <p style="color: red;">{{ error }}</p>
+        </section>
+        {% endif %}
+      </div>
+    </main>
+  </body>
+</html>

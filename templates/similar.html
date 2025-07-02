@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Summary - Digi-Kanoon</title>
+    <link rel="stylesheet" href="/static/similar.css" />
+    <script defer src="/static/script.js"></script>
+  </head>
+  <body class="dark-mode">
+    <header>
+      <h1>Similar Case Finder</h1>
+      <label class="switch">
+        <input type="checkbox" id="theme-toggle" checked />
+        <span class="slider"></span>
+      </label>
+    </header>
+
+    <main>
+      <section class="chat-section">
+        <div class="chat-box">
+          <p class="chat-prompt">Enter case details or query below:</p>
+          <textarea
+            id="user-input"
+            class="chat-input"
+            placeholder="Type here..."
+          ></textarea>
+          <button onclick="generateOutput()">Submit</button>
+        </div>
+
+        <div class="output-box">
+          <h3>Generated Output:</h3>
+          <p id="output-text">The generated case result will appear here.</p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

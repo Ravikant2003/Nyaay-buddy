@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NER - Digi-Kanoon</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #eee;
+      margin: 0; padding: 0;
+    }
+    header {
+      padding: 1rem;
+      background: #222;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+    }
+    .container {
+      display: flex;
+      gap: 2rem;
+      padding: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .ner-section {
+      background: #1e1e1e;
+      border-radius: 8px;
+      padding: 1rem;
+      width: 45vw;
+      max-width: 600px;
+      min-width: 300px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      height: 80vh;
+    }
+    .ner-section h2 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
+    button {
+      background-color: #4caf50;
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-bottom: 1rem;
+      align-self: flex-start;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .text-output {
+      background-color: #2c2c2c;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-y: scroll;
+      flex-grow: 1;
+      white-space: pre-wrap;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 14px;
+      line-height: 1.4;
+      border: 1px solid #444;
+    }
+
+    .entity {
+      padding: 0 3px;
+      border-radius: 3px;
+      color: #000;
+      font-weight: 600;
+      margin: 0 1px;
+    }
+
+    .COURT        { background-color: #ffb3ba; }
+    .DATE         { background-color: #bae1ff; }
+    .GPE          { background-color: #baffc9; }
+    .JUDGE        { background-color: #ffffba; }
+    .ORG          { background-color: #ffc9de; }
+    .OTHER_PERSON { background-color: #d5b3ff; }
+    .PETITIONER   { background-color: #b3ffd9; }
+    .PRECEDENT    { background-color: #c2f0c2; }
+    .PROVISION    { background-color: #fcd5ce; }
+    .RESPONDENT   { background-color: #f5c9ff; }
+    .STATUTE      { background-color: #ffd6a5; }
+    .WITNESS      { background-color: #d0f4de; }
+    .MISC         { background-color: #90caf9; }
+
+    .text-output::-webkit-scrollbar {
+      width: 10px;
+    }
+    .text-output::-webkit-scrollbar-thumb {
+      background-color: #555;
+      border-radius: 5px;
+    }
+
+    .legend {
+      background: #1e1e1e;
+      padding: 1rem;
+      margin: 1rem;
+      border-radius: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      font-size: 14px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #2c2c2c;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+    .legend-color {
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Named Entity Recognition</h1>
+  </header>
+
+  <div class="container">
+    <section class="ner-section" id="preamble-section">
+      <h2>Preamble</h2>
+      <button onclick="generateNER('preamble')">Generate NER</button>
+      <div class="text-output" id="preamble-output">Upload and run NER to see highlighted entities here.</div>
+    </section>
+
+    <section class="ner-section" id="judgement-section">
+      <h2>Judgment</h2>
+      <button onclick="generateNER('judgement')">Generate NER</button>
+      <div class="text-output" id="judgement-output">Upload and run NER to see highlighted entities here.</div>
+    </section>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-color" style="background:#ffb3ba;"></span>COURT</div>
+    <div class="legend-item"><span class="legend-color" style="background:#bae1ff;"></span>DATE</div>
+    <div class="legend-item"><span class="legend-color" style="background:#baffc9;"></span>GPE</div>
+    <div class="legend-item"><span class="legend-color" style="background:#ffffba;"></span>JUDGE</div>
+    <div class="legend-item"><span class="legend-color" style="background:#ffc9de;"></span>ORG</div>
+    <div class="legend-item"><span class="legend-color" style="background:#d5b3ff;"></span>OTHER_PERSON</div>
+    <div class="legend-item"><span class="legend-color" style="background:#b3ffd9;"></span>PETITIONER</div>
+    <div class="legend-item"><span class="legend-color" style="background:#c2f0c2;"></span>PRECEDENT</div>
+    <div class="legend-item"><span class="legend-color" style="background:#fcd5ce;"></span>PROVISION</div>
+    <div class="legend-item"><span class="legend-color" style="background:#f5c9ff;"></span>RESPONDENT</div>
+    <div class="legend-item"><span class="legend-color" style="background:#ffd6a5;"></span>STATUTE</div>
+    <div class="legend-item"><span class="legend-color" style="background:#d0f4de;"></span>WITNESS</div>
+  </div>
+
+  <script>
+    async function generateNER(type) {
+      const outputDiv = document.getElementById(type + '-output');
+      outputDiv.textContent = 'Processing...';
+
+      try {
+        const response = await fetch(`/run_ner?type=${type}`);
+
+        if (!response.ok) {
+          try {
+            const errorData = await response.json();
+            outputDiv.textContent = 'Error: ' + (errorData.error || 'Unknown error');
+          } catch {
+            const errorText = await response.text();
+            outputDiv.textContent = 'Error: ' + errorText;
+          }
+          return;
+        }
+
+        const data = await response.json();
+        const text = data.text;
+        const entities = data.entities;
+
+        entities.sort((a, b) => a.start - b.start);
+        let resultHTML = "";
+        let lastIndex = 0;
+
+        for (const ent of entities) {
+          resultHTML += escapeHTML(text.slice(lastIndex, ent.start));
+          const labelClass = (ent.label || 'MISC').trim().toUpperCase();
+          resultHTML += `<span class="entity ${labelClass}">${escapeHTML(text.slice(ent.start, ent.end))}</span>`;
+          lastIndex = ent.end;
+        }
+        resultHTML += escapeHTML(text.slice(lastIndex));
+        outputDiv.innerHTML = resultHTML;
+
+      } catch (err) {
+        outputDiv.textContent = 'Error: ' + err.message;
+      }
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>"']/g, function (match) {
+        switch (match) {
+          case "&": return "&amp;";
+          case "<": return "&lt;";
+          case ">": return "&gt;";
+          case '"': return "&quot;";
+          case "'": return "&#39;";
+          default: return match;
+        }
+      });
+    }
+  </script>
+</body>
+</html>

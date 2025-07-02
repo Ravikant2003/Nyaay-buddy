@@ -1,0 +1,192 @@
+:root {
+  --bg-light: #ffffff;
+  --text-light: #000000;
+  --bg-dark: #1e1e1e;
+  --text-dark: #ffffff;
+  --header-bg: rgba(0, 123, 255, 0.2);
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-light);
+  transition: background-color 0.3s, color 0.3s;
+  padding: 20px;
+  text-align: center;
+}
+
+body.dark-mode {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--header-bg);
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 40px;
+}
+
+/* Toggle switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 25px;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 3.5px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #007bff;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* Chat Section */
+.chat-section {
+  margin-top: 50px;
+}
+
+/* Chat Box */
+.chat-box {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 30px; /* Increased space between input and output cards */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Textarea input for user */
+.chat-input {
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 15px;
+  resize: none;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #000;
+}
+
+.chat-input:focus {
+  outline: none;
+  background-color: #ffffff;
+}
+
+/* Submit button for the chat */
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Output Box */
+.output-box {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  border-radius: 15px;
+  width: 80%;
+  margin: 0 auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Output Text */
+.output-box h3 {
+  color: #007bff;
+  font-weight: bold;
+}
+
+.output-box p {
+  color: #000;
+  font-style: italic;
+}
+
+/* Light mode adjustments */
+body:not(.dark-mode) .chat-box,
+body:not(.dark-mode) .output-box {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+body:not(.dark-mode) .chat-input {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: black;
+}
+
+body:not(.dark-mode) button {
+  background-color: #007bff;
+}
+
+/* Dark mode adjustments */
+body.dark-mode .chat-box,
+body.dark-mode .output-box {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .chat-input {
+  background-color: rgba(255, 255, 255, 0.4);
+  color: white;
+}
+
+body.dark-mode .output-box p {
+  color: white; /* Ensures text in output box is white in dark mode */
+}
+
+body.dark-mode button {
+  background-color: #6f42c1;
+}
+
+/* Input Placeholder and Output Text in Dark Mode */
+body.dark-mode .chat-input::placeholder,
+body.dark-mode .output-box p {
+  color: white; /* Ensures placeholder text is white */
+}

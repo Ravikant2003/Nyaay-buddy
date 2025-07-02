@@ -1,0 +1,212 @@
+:root {
+  --bg-light: #ffffff;
+  --text-light: #000000;
+  --bg-dark: #1e1e1e;
+  --text-dark: #ffffff;
+  --button-bg: #007bff;
+  --button-hover: #0056b3;
+  --header-bg: rgba(0, 123, 255, 0.2);
+}
+
+/* === BACKGROUND IMAGES === */
+body {
+  font-family: 'Roboto Slab', serif;
+  background-color: var(--bg-light);
+  background-image: url('./images/bg-light.jpeg'); /* Light mode background */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  color: var(--text-light);
+  transition: background-color 0.3s, color 0.3s;
+  text-align: center;
+  padding: 20px;
+}
+
+body.dark-mode {
+  background-color: var(--bg-dark);
+  background-image: url('./images/bg-dark.jpeg'); /* Dark mode background */
+  color: var(--text-dark);
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--header-bg);
+  border-radius: 15px;
+  color: white;
+  width: 80%;
+  margin: 20px auto;
+}
+
+body:not(.dark-mode) header h1 {
+  color: var(--text-light);
+}
+
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 25px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 3.5px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--button-bg);
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* Upload Section */
+.upload-section {
+  margin-top: 50px;
+}
+
+.drop-area {
+  border: 2px dashed #007bff;
+  padding: 30px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.drop-area:hover {
+  background: rgba(0, 123, 255, 0.1);
+}
+
+#file-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+#file-list li {
+  background: #f8f9fa;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  transition: all 0.3s;
+  color: black;
+}
+
+#file-list li:hover {
+  background: #e9ecef;
+}
+
+body.dark-mode #file-list li {
+  background: #2c2c2c;
+  color: white;
+}
+
+body.dark-mode #file-list li:hover {
+  background: #3a3a3a;
+}
+
+/* Glass Cards */
+.glass-card {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+  padding: 10px;
+}
+
+.glass-card .card-title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+/* Light mode card background & text */
+body:not(.dark-mode) .glass-card {
+  background: rgba(255, 255, 255, 0.4);
+  color: black;
+}
+
+/* Dark mode card background & text */
+body.dark-mode .glass-card {
+  background: #93939333;
+  color: white;
+}
+
+.glass-card .card-text {
+  font-style: italic;
+  color: inherit;
+}
+
+.glass-card:hover {
+  transform: scale(1.03);
+}
+
+/* Purple Apple-style buttons */
+.glass-card .btn-primary {
+  background: linear-gradient(to right, #a18cd1, #fbc2eb);
+  color: black;
+  border: none;
+  font-weight: bold;
+}
+
+.glass-card .btn-primary:hover {
+  opacity: 0.9;
+  color: black;
+}
+
+
+/* General entity styling */
+.entity {
+  padding: 0 4px;
+  border-radius: 3px;
+  color: #000;
+  font-weight: 600;
+  margin: 0 1px;
+}
+
+/* Entity-specific colors */
+.COURT         { background-color: #ffb3ba; } /* Soft Red */
+.DATE          { background-color: #bae1ff; } /* Light Blue */
+.GPE           { background-color: #baffc9; } /* Mint Green */
+.JUDGE         { background-color: #ffffba; } /* Light Yellow */
+.ORG           { background-color: #ffc9de; } /* Pink */
+.OTHER_PERSON  { background-color: #d5b3ff; } /* Lavender */
+.PETITIONER    { background-color: #b3ffd9; } /* Aquamarine */
+.PRECEDENT     { background-color: #c2f0c2; } /* Pale Green */
+.PROVISION     { background-color: #fcd5ce; } /* Peach */
+.RESPONDENT    { background-color: #f5c9ff; } /* Light Purple */
+.STATUTE       { background-color: #ffd6a5; } /* Pale Orange */
+.WITNESS       { background-color: #d0f4de; } /* Light Mint */

@@ -1,0 +1,173 @@
+:root {
+  --bg-light: #ffffff;
+  --text-light: #000000;
+  --bg-dark: #1e1e1e;
+  --text-dark: #ffffff;
+  --header-bg: rgba(0, 123, 255, 0.2);
+  --card-bg-dark: #9393933b;
+  --card-bg-light: rgba(255, 255, 255, 0.8);
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-light);
+  transition: background-color 0.3s, color 0.3s;
+  padding: 20px;
+  text-align: center;
+}
+
+body.dark-mode {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--header-bg);
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 40px;
+}
+
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 25px;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 3.5px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #007bff;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* Card Container */
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* NER Cards */
+.ner-card {
+  width: 100%;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: var(--card-bg-light);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+body.dark-mode .ner-card {
+  background-color: var(--card-bg-dark);
+}
+
+/* Headings */
+.ner-card h2 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Text Input */
+.text-input {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  resize: vertical;
+  background-color: var(--card-bg-light);
+  color: black;
+}
+
+body.dark-mode .text-input {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid #666;
+}
+
+/* Placeholder */
+.text-input::placeholder {
+  color: #555;
+}
+body.dark-mode .text-input::placeholder {
+  color: #ccc;
+}
+
+/* Action Button */
+.action-button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #6c5ce7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: #5e50c7;
+}
+
+/* Output Box */
+.output-box {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: inherit;
+  border: 1px solid #ccc;
+}
+
+body.dark-mode .output-box {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid #666;
+}

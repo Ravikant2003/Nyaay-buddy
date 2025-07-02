@@ -1,4 +1,4 @@
-# Nyaay-buddy
+# Nyaay-buddy ⚖️
 # Legal Judgement NER and RAG-Based Question Answering System
 
 This project focuses on simplifying access to legal information for non-experts. It uses a fine-tuned BERT model to extract named entities from Indian legal judgment documents and integrates a Retrieval-Augmented Generation (RAG) pipeline to answer user queries based on those documents. The system is deployed through a FastAPI backend and is accessible via a lightweight web interface.
